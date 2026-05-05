@@ -1,13 +1,28 @@
 /* =========================
+    GLOBAL VARIABLES
+    - Define color palette and reusable values
+    - Accessible throughout the entire stylesheet
+========================= */
+:root {
+    --blue: #a7c7e7;  /* pastel blue */
+    --green: #b5e7a0;  /* pastel green */
+    --purple: #cbb5e7;  /* pastel purple */
+    --text: #333333;  /* dark gray text */
+    --background: #f9fafb; /* light gray background */
+}
+
+/* =========================
    GLOBAL STYLES
    Base layout and typography
 ========================= */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Quicksand', sans-serif;
   text-align: center;
   margin: 0;
   padding: 20px;
   transition: background 0.5s ease;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 /* =========================
@@ -16,6 +31,10 @@ body {
 ========================= */
 header {
   margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: 600;
 }
 
 /* =========================
@@ -33,6 +52,9 @@ button {
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: #f0f4f8;
+    font-weight: 400;
+    background-color: var(--blue);
+    color: var(--text);
 }
 
 /* ========================== 
@@ -54,7 +76,7 @@ button:hover {
     - slight scaling effect
 ========================= */
 button.active {
-    background-color: #6c8ef5;
+    background-color: var(--purple);
     color: white;
     transform: scale(1.05);
 }
