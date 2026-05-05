@@ -75,3 +75,15 @@ function setMood(mood){
 function setNeed(need){
     state.need = need;
 }
+
+// Generates and displays a response using mood and need selections
+function showResult(){
+    if(!state.mood || !state.need){
+        document.getElementById("result-text").innerText = "Please select both mood and need.";
+        return;
+    }
+
+    const message = responses[state.mood][state.need];
+
+    document.getElementById("result-text").innerText = message;
+}

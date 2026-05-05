@@ -1,3 +1,7 @@
+/* =========================
+   GLOBAL STYLES
+   Base layout and typography
+========================= */
 body {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -6,6 +10,29 @@ body {
   transition: background 0.5s ease;
 }
 
+/* =========================
+   HEADER SECTION
+   Page title and intro text
+========================= */
 header {
   margin-bottom: 20px;
+}
+
+/* =========================
+   RESULT SECTION
+   Displays final mood + need response
+========================= */
+.result-section {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+/* =========================
+   RESULT TEXT
+   Dynamic message output styling
+========================= */
+#result-text {
+    margin: 15px 0;
+    font-size: 18px;
+    color: #1f2937;
 }
