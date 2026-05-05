@@ -69,11 +69,23 @@ function setMood(mood){
 
     document.body.style.background = moodData[mood];
     document.body.style.transition = "background 0.5s ease";
+
+    // remove previous active
+    document.querySelectorAll(".mood-section button").forEach(btn => btn.classList.remove("active"));
+
+    // add active to clicked mood button
+    event.target.classList.add("active");
 }
 
 //Stores user's need selection
 function setNeed(need){
     state.need = need;
+
+    // remove previous active
+    document.querySelectorAll(".need-section button").forEach(btn => btn.classList.remove("active"));
+
+    // add active to clicked need button
+    event.target.classList.add("active");
 }
 
 // Generates and displays a response using mood and need selections

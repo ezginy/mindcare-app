@@ -19,29 +19,29 @@
         <section class="mood-section">
             <h2>Choose your mood</h2>
 
-            <button onclick="setMood('happy')">🙂 Happy</button>
-            <button onclick="setMood('neutral')">😐 Okay</button>
-            <button onclick="setMood('sad')">😔 Sad</button>
-            <button onclick="setMood('stress')">😰 Stressed</button>
-            <button onclick="setMood('tired')">😴 Tired</button>
+            <button onclick="setMood('happy', event)">🙂 Happy</button>
+            <button onclick="setMood('neutral', event)">😐 Okay</button>
+            <button onclick="setMood('sad', event)">😔 Sad</button>
+            <button onclick="setMood('stress', event)">😰 Stressed</button>
+            <button onclick="setMood('tired', event)">😴 Tired</button>
         </section>
 
         <!-- NEED SECTION -->
          <section class="need-section">
             <h2>What do you need today?</h2>
 
-            <button onclick="setNeed('calm')">🧘 Calm</button>
-            <button onclick="setNeed('talk')">💬 Talk</button>
-            <button onclick="setNeed('rest')">😴 Rest</button>
-            <button onclick="setNeed('focus')">🎯 Focus</button>
-            <button onclick="setNeed('distraction')">🎧 Distraction</button>
+            <button onclick="setNeed('calm', event)">🧘 Calm</button>
+            <button onclick="setNeed('talk', event)">💬 Talk</button>
+            <button onclick="setNeed('rest', event)">😴 Rest</button>
+            <button onclick="setNeed('focus', event)">🎯 Focus</button>
+            <button onclick="setNeed('distraction', event)">🎧 Distraction</button>
          </section>
 
          <!-- RESULT -->
           <section class="result-section">
             <h2>Your Result</h2>
             <p id="result-text">Select your mood and need to see your result.</p>
-            
+
             <button onclick="showResult()">Show Result</button>
           </section>
     </main>

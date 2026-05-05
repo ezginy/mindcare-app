@@ -19,6 +19,29 @@ header {
 }
 
 /* =========================
+   BUTTONS
+   Base styling
+========================= */
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* =========================
+   SELECTED STATE
+   Active button highlight
+========================= */
+button.active {
+    background-color: #6c8ef5;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* =========================
    RESULT SECTION
    Displays final mood + need response
 ========================= */
