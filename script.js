@@ -88,7 +88,13 @@ function setNeed(need){
     event.target.classList.add("active");
 }
 
-// Generates and displays a response using mood and need selections
+/* ==========================
+    SHOW RESULT FUNCTION
+    - Shows the result after the user selects mood and need. 
+    - Gives a warning message if no selection is made. 
+    - Retrieves the message from the responses table if a selection is made. 
+    - Removes and re-adds the class for fade-in animation.
+========================= */
 function showResult(){
     const resultText = document.getElementById("result-text");
 
@@ -100,7 +106,12 @@ function showResult(){
         resultText.innerText = message;
     }
 
+    // To trigger the fade-in animation: 
+    
+    // 1. First, remove the fade-in class.
     resultText.classList.remove("fade-in");
+    // 2. Make the browser recalculate (reflow trick)
     void resultText.offsetWidth;
+    // 3. Add the Fade-in class again → animation will work again
     resultText.classList.add("fade-in");
 }
