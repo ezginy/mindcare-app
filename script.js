@@ -90,12 +90,17 @@ function setNeed(need){
 
 // Generates and displays a response using mood and need selections
 function showResult(){
+    const resultText = document.getElementById("result-text");
+
     if(!state.mood || !state.need){
-        document.getElementById("result-text").innerText = "Please select both mood and need.";
+        resultText.innerText = "Please select both mood and need.";
         return;
+    } else {
+        const message = responses[state.mood][state.need]; 
+        resultText.innerText = message;
     }
 
-    const message = responses[state.mood][state.need];
-
-    document.getElementById("result-text").innerText = message;
+    resultText.classList.remove("fade-in");
+    void resultText.offsetWidth;
+    resultText.classList.add("fade-in");
 }

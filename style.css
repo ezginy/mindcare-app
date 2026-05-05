@@ -19,8 +19,11 @@ header {
 }
 
 /* =========================
-   BUTTONS
-   Base styling
+    BUTTONS
+    Base styling
+    - margin and padding adjustment 
+    - no border, rounded corners 
+    - hover and transitions for active states
 ========================= */
 button {
     margin: 5px;
@@ -29,11 +32,26 @@ button {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
+    background-color: #f0f4f8;
+}
+
+/* ========================== 
+    BUTTON HOVER
+    - when the user hovers the mouse over the button
+    - a slight color change and shadow are added 
+    - the button lifts slightly upwards (translateY)
+========================== */
+button:hover {
+    background-color: #e0e7ff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
 }
 
 /* =========================
-   SELECTED STATE
-   Active button highlight
+    SELECTED STATE
+    Active button highlight
+    - activated button when user selects a mood/need
+    - slight scaling effect
 ========================= */
 button.active {
     background-color: #6c8ef5;
@@ -58,4 +76,29 @@ button.active {
     margin: 15px 0;
     font-size: 18px;
     color: #1f2937;
+}
+
+/* ========================== 
+    FADE-IN ANIMATION
+    - gradually increases the visibility of the element 
+    - initially opacity: 0 → invisible 
+    - ending opacity: 1 → visible
+========================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* =========================
+    FADE-IN CLASS
+    - class that uses fade-in animation
+    - smooth transition in 0.5 seconds
+    - forwards: the final state is preserved after the animation ends
+========================= */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
 }
