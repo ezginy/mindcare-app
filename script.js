@@ -7,6 +7,12 @@ let state = {
 };
 
 // ===============================
+// HISTORY STORAGE
+// Load previous check-ins from localStorage
+// ===============================
+let history = JSON.parse(localStorage.getItem("mindcareHistory")) || [];
+
+// ===============================
 // RESPONSE ENGINE (Mood + Need results)
 // mood + need combination -> final message
 // ===============================
@@ -152,6 +158,7 @@ const responses = {
     }
 };
 
+// Returns a random response from the selected mood + need response pool
 function getRandomMessage(list){
     return list[Math.floor(Math.random() * list.length)];
 }
@@ -167,7 +174,10 @@ const moodData = {
     tired: "#fef9c3"
 };
 
-//Sets mood + changes background color
+// ===============================
+// MOOD SELECTION
+// Stores selected mood and updates UI state
+// ===============================
 function setMood(mood){
     state.mood = mood;
 
@@ -181,7 +191,10 @@ function setMood(mood){
     event.target.classList.add("active");
 }
 
-//Stores user's need selection
+// ===============================
+// NEED SELECTION
+// Stores selected need and updates UI state
+// ===============================
 function setNeed(need){
     state.need = need;
 
@@ -222,6 +235,19 @@ function showResult(){
         const randomMessage = getRandomMessage(messages);
 
         resultText.innerText = randomMessage;
+
+        // Store current check-in in history
+        history.push({
+            mood: state.mood,
+            need: state.need,
+            result: randomMessage
+        });
+
+        // Save updated history to browser storage
+        localStorage.setItem("mindcareHistory", JSON.stringify(history));
+
+        // Update history UI after new check-in
+        renderHistory();
     }
 
     // To trigger the fade-in animation: 
@@ -233,3 +259,35 @@ function showResult(){
     // 3. Add the Fade-in class again → animation will work again
     resultText.classList.add("fade-in");
 }
+
+/* ==========================
+    RENDER HISTORY FUNCTION
+
+    PURPOSE:
+    - Displays previous check-ins in the UI
+    - Converts history array data into HTML list items
+========================== */
+function renderHistory(){
+    
+    // Select history list container
+    const historyList = document.getElementById("history-list");
+
+    // Clear existing history before re-rendering
+    historyList.innerHTML = "";
+
+    // Loop through history array
+    history.forEach(entry => {
+        
+        // Create list item for each history entry
+        const li = document.createElement("li");
+
+        // Insert mood + need text into the list item
+        li.innerText = `${entry.mood} + ${entry.need}`;
+
+        // Add list item into history list
+        historyList.appendChild(li);
+    });
+}
+
+// Initial render when page loads
+renderHistory();

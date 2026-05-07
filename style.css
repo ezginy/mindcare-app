@@ -124,3 +124,24 @@ button.active {
 .fade-in {
     animation: fadeIn 0.5s ease forwards;
 }
+
+/* =========================
+    HISTORY SECTION
+    Displays previous check-ins
+========================= */
+.history-section {
+    margin-top: 40px;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+}
+
+#history-list li {
+    background: rgba(255,255,255,0.6);
+    margin: 10px auto;
+    padding: 12px;
+    border-radius: 10px;
+    max-width: 400px;
+}
