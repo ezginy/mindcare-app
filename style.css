@@ -145,3 +145,12 @@ button.active {
     border-radius: 10px;
     max-width: 400px;
 }
+
+/* =========================
+    EMPTY HISTORY STATE
+    Displayed when there are no check-ins
+========================= */
+.empty-history {
+    opacity: 0.7;
+    font-style: italic;
+}

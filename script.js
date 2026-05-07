@@ -175,6 +175,28 @@ const moodData = {
 };
 
 // ===============================
+// EMOJI DATA
+// Visual representation for moods and needs
+// ===============================
+const emojiData = {
+    moods: {
+        happy: "🙂",
+        neutral: "😐",
+        sad: "😔",
+        stress: "😰",
+        tired: "😴"
+    },
+
+    needs: {
+        calm: "🧘",
+        talk: "💬",
+        rest: "🛌",
+        focus: "🎯",
+        distraction: "🎧"
+    }
+};
+
+// ===============================
 // MOOD SELECTION
 // Stores selected mood and updates UI state
 // ===============================
@@ -275,6 +297,17 @@ function renderHistory(){
     // Clear existing history before re-rendering
     historyList.innerHTML = "";
 
+    // Show empty state if there is no history yet
+    if(history.length === 0){
+        historyList.innerHTML = `
+            <li class="empty-history">
+                No check-ins yet 🌱
+            </li>
+        `;
+
+        return;
+    }
+
     // Loop through history array
     history.forEach(entry => {
         
@@ -282,7 +315,9 @@ function renderHistory(){
         const li = document.createElement("li");
 
         // Insert mood + need text into the list item
-        li.innerText = `${entry.mood} + ${entry.need}`;
+        li.innerText = `
+            ${emojiData.moods[entry.mood]} ${entry.mood} • ${emojiData.needs[entry.need]} ${entry.need}
+        `;
 
         // Add list item into history list
         historyList.appendChild(li);
