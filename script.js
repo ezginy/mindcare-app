@@ -164,14 +164,25 @@ function getRandomMessage(list){
 }
 
 // ===============================
-// UI DATA (Mood visual styles)
+// MOOD BACKGROUND DATA
+// Soft background tints for each mood
 // ===============================
 const moodData = {
-    happy: "#d4f8e8",
-    neutral: "#f0f0f0",
-    sad: "#dbeafe",
-    stress: "#ede9fe",
-    tired: "#fef9c3"
+    light: {
+        happy: "rgba(212,248,232,0.7)",
+        neutral: "rgba(240, 240, 240, 0.7)",
+        sad: "rgba(219, 234, 254, 0.7)",
+        stress: "rgba(237, 233, 254, 0.7)",
+        tired: "rgba(254, 249, 195, 0.7)"
+    },
+
+    dark: {
+        happy: "#1f3a2e",
+        neutral: "#2a2f36",
+        sad: "#1e3a5f",
+        stress: "#3b2c52",
+        tired: "#4a4423"
+    }
 };
 
 // ===============================
@@ -203,7 +214,11 @@ const emojiData = {
 function setMood(mood){
     state.mood = mood;
 
-    document.body.style.background = moodData[mood];
+    // check current theme mode
+    const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    
+    // apply matching mood background tint
+    document.body.style.backgroundColor = moodData[currentTheme][mood];
     document.body.style.transition = "background 0.5s ease";
 
     // remove previous active
@@ -315,7 +330,7 @@ function renderHistory(){
         const li = document.createElement("li");
 
         // Insert mood + need text into the list item
-        li.innerText = `
+        li.innerHTML = `
             ${emojiData.moods[entry.mood]} ${entry.mood} • ${emojiData.needs[entry.need]} ${entry.need}
         `;
 
@@ -326,3 +341,26 @@ function renderHistory(){
 
 // Initial render when page loads
 renderHistory();
+
+/* ==========================
+   DARK MODE TOGGLE
+
+   PURPOSE:
+   - Switches between light and dark theme
+========================== */
+const themeToggle = document.getElementById("theme-toggle");
+
+themeToggle.addEventListener("click", () => {
+
+    // Toggle dark mode class on body
+    document.body.classList.toggle("dark-mode");
+
+    // Re-apply mood background after theme switch
+    if(state.mood){
+        // detect current active theme
+        const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+
+        // apply matching mood background tint
+        document.body.style.backgroundColor = moodData[currentTheme][state.mood];
+    }
+});

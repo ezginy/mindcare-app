@@ -20,7 +20,8 @@ body {
   text-align: center;
   margin: 0;
   padding: 20px;
-  transition: background 0.5s ease;
+  transition: background 0.5s ease, 
+    background-color 0.4s ease, color 0.4s ease;
   background-color: var(--background);
   color: var(--text);
 }
@@ -35,6 +36,27 @@ header {
 
 h1 {
     font-weight: 600;
+}
+
+/* =========================
+   MAIN LAYOUT
+   Controls overall page spacing
+========================= */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+footer {
+    margin-top: 50px;
+    opacity: 0.5;
+    font-size: 14px;
 }
 
 /* =========================
@@ -88,6 +110,11 @@ button.active {
 .result-section {
     margin-top: 30px;
     padding: 20px;
+    background: rgba(255,255,255,0.35);
+    border-radius: 20px;
+    margin: 0 auto;
+    backdrop-filter: blur(6px);
+    max-width: 600px;
 }
 
 /* =========================
@@ -95,9 +122,11 @@ button.active {
    Dynamic message output styling
 ========================= */
 #result-text {
-    margin: 15px 0;
+    margin: 20px auto;
     font-size: 18px;
-    color: #1f2937;
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 500px;
 }
 
 /* ========================== 
@@ -109,9 +138,11 @@ button.active {
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -122,7 +153,7 @@ button.active {
     - forwards: the final state is preserved after the animation ends
 ========================= */
 .fade-in {
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeIn 0.8s ease forwards;
 }
 
 /* =========================
@@ -138,12 +169,20 @@ button.active {
     padding: 0;
 }
 
+/* =========================
+   HISTORY ITEM AND HOVER EFFECT
+========================= */
 #history-list li {
     background: rgba(255,255,255,0.6);
     margin: 10px auto;
     padding: 12px;
     border-radius: 10px;
     max-width: 400px;
+    transition: transform 0.2s ease;
+}
+
+#history-list li:hover {
+    transform: translateY(-2px);
 }
 
 /* =========================
@@ -153,4 +192,49 @@ button.active {
 .empty-history {
     opacity: 0.7;
     font-style: italic;
+}
+
+/* =========================
+   DARK MODE THEME
+   Overrides default color variables
+========================= */
+.dark-mode {
+    --blue: #3b4c63;
+    --green: #4d6651;
+    --purple: #5b4b6a;
+    --text: #f3f4f6;
+    --background: #1f2937;
+}
+
+/* =========================
+   DARK MODE RESULT CARD
+========================= */
+.dark-mode .result-section {
+    background: rgba(255,255,255,0.08);
+}
+
+/* =========================
+   DARK MODE HISTORY ITEMS
+========================= */
+.dark-mode #history-list li {
+    background: rgba(255,255,255,0.05);
+}
+
+/* =========================
+   DARK MODE BUTTONS
+========================= */
+.dark-mode button {
+    background-color: #374151;
+    color: #f3f4f6;
+}
+
+.dark-mode button:hover {
+    background-color: #4b5563;
+}
+
+/* =========================
+   DARK MODE FOOTER
+========================= */
+.dark-mode footer {
+    opacity: 0.4;
 }
