@@ -190,11 +190,11 @@ const moodData = {
 // Soft animated background colors
 // ===============================
 const glowColors = {
-    happy: "#b7f5c5",
-    neutral: "#e5e7eb",
-    sad: "#93c5fd",
-    stress: "#c4b5fd",
-    tired: "#fce7a8"
+    happy: "#86efac",
+    neutral: "#d1d5db",
+    sad: "#60a5fa",
+    stress: "#a78bfa",
+    tired: "#fde68a"
 };
 
 // ===============================
