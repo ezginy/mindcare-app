@@ -339,8 +339,69 @@ function renderHistory(){
     });
 }
 
+/* ==========================
+   GENERATE INSIGHT FUNCTION
+
+   PURPOSE:
+   - Analyzes user check-in history
+   - Finds the most selected need
+   - Generates a personalized insight message
+========================== */
+function generateInsight(){
+
+    // select insight text element
+    const insightText = document.getElementById("insight-text");
+
+    // wait until enough check-ins exist
+    if(history.length < 3){
+        insightText.innerText = "Complete a few more check-ins to unlock insights 🌱";
+        return;
+    }
+
+    // store how many times each need appears 
+    const needCount = {};
+
+    // count every selected need
+    history.forEach(entry => {
+
+        if(needCount[entry.need]){
+            needCount[entry.need]++;
+        } else {
+            needCount[entry.need] = 1;
+        }
+    });
+    console.log(needCount);
+
+    // track the most selected need
+    let topNeed = "";
+    let topCount = 0;
+
+    // find the need with the highest count
+    for(let need in needCount){
+        if(needCount[need] > topCount){
+            topCount = needCount[need];
+            topNeed = need;
+        }
+    }
+
+    // personalized insight messages
+    const insightMessages = {
+        rest: "You've been needing more rest lately.",
+        calm: "You seem to be looking for more calm recently.",
+        talk: "You may benefit from opening up to someone.",
+        focus: "Your recent check-ins suggest a need for focus.",
+        distraction: "You've been needing small mental breaks lately."
+    }
+
+    // display generated insight 
+    insightText.innerText = insightMessages[topNeed];
+}
+
 // Initial render when page loads
 renderHistory();
+
+// Generate personalized insight
+generateInsight();
 
 /* ==========================
    DARK MODE TOGGLE

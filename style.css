@@ -238,3 +238,25 @@ button.active {
 .dark-mode footer {
     opacity: 0.4;
 }
+
+/* =========================
+   DARK MODE INSIGHT TEXT
+========================= */
+.dark-mode #insight-text {
+    opacity: 0.9;
+}
+
+/* =========================
+   INSIGHT MESSAGE
+   Personalized pattern feedback
+========================= */
+#insight-text {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-size: 15px;
+    line-height: 1.5;
+    opacity: 0.85;
+    max-width: 450px;
+    margin-right: auto;
+    margin-left: auto;
+}
