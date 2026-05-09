@@ -21,7 +21,7 @@ body {
   margin: 0;
   padding: 20px;
   transition: background 0.5s ease, 
-    background-color 0.4s ease, color 0.4s ease;
+    background-color 1s ease, color 0.4s ease;
   background-color: var(--background);
   color: var(--text);
 }
@@ -160,12 +160,13 @@ button.active {
 .result-section {
     margin-top: 30px;
     padding: 20px;
-    background: rgba(255,255,255,0.78);
+    background: rgba(255,255,255,0.28);
     border-radius: 24px;
     margin: 0 auto;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
     max-width: 600px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.18);
 }
 
 /* =========================
@@ -345,9 +346,10 @@ button.active {
 .mood-section, .need-section, .history-section {
     padding: 25px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.22);
     box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.18);
 }
 
 /* =========================
@@ -383,5 +385,55 @@ button.active {
 
     .mood-section, .need-section, .result-section, .history-section {
         padding: 20px;
+    }
+}
+
+/* =========================
+   CONTENT LAYER
+   Keeps UI above ambient glow
+========================= */
+header, main, footer, #theme-toggle {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================
+   AMBIENT BACKGROUND GLOW
+   Soft breathing mood layer
+========================= */
+.background-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 500px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    filter: blur(70px);
+    opacity: 0.95;
+    z-index: 0;
+    transition: background 0.8s ease, transform 2s ease;
+    animation: ambientBreathing 6s ease-in-out infinite;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* =========================
+   AMBIENT BREATHING EFFECT
+   Slow organic background motion
+========================= */
+@keyframes ambientBreathing {
+    
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.16);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
     }
 }

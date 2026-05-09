@@ -186,6 +186,30 @@ const moodData = {
 };
 
 // ===============================
+// AMBIENT GLOW COLORS
+// Soft animated background colors
+// ===============================
+const glowColors = {
+    happy: "#b7f5c5",
+    neutral: "#e5e7eb",
+    sad: "#93c5fd",
+    stress: "#c4b5fd",
+    tired: "#fce7a8"
+};
+
+// ===============================
+// SOFT PAGE TINT COLORS
+// Subtle ambient background tones
+// ===============================
+const ambientColors = {
+    happy: "#f0faf4",
+    neutral: "#f5f5f5",
+    sad: "#eef6ff",
+    stress: "#f5f0ff",
+    tired: "#fffbea"
+}
+
+// ===============================
 // EMOJI DATA
 // Visual representation for moods and needs
 // ===============================
@@ -213,18 +237,17 @@ const emojiData = {
 // ===============================
 function setMood(mood){
     state.mood = mood;
-
-    // check current theme mode
-    const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
     
-    // apply matching mood background tint
-    document.body.style.backgroundColor = moodData[currentTheme][mood];
-    document.body.style.transition = "background 0.5s ease";
+    // select animated background glow layer
+    const backgroundGlow = document.querySelector(".background-glow");
 
-    // remove previous active
+    // apply matching mood glow color
+    backgroundGlow.style.color = glowColors[mood];
+
+    // remove previous active button
     document.querySelectorAll(".mood-section button").forEach(btn => btn.classList.remove("active"));
 
-    // add active to clicked mood button
+    // add active class to selected mood button
     event.target.classList.add("active");
 }
 
@@ -420,8 +443,5 @@ themeToggle.addEventListener("click", () => {
     if(state.mood){
         // detect current active theme
         const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-
-        // apply matching mood background tint
-        document.body.style.backgroundColor = moodData[currentTheme][state.mood];
     }
 });
