@@ -31,11 +31,49 @@ body {
    Page title and intro text
 ========================= */
 header {
-  margin-bottom: 20px;
+  margin-bottom: 35px;
+}
+
+header p {
+    opacity: 0.75;
 }
 
 h1 {
     font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   APP BRANDING
+   Minimal top identity section
+========================= */
+.logo-area {
+    margin-bottom: 25px;
+    opacity: 0.95;
+}
+
+.logo-area h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--purple);
+    letter-spacing: 0.5px;
+}
+
+.logo-area p {
+    margin-top: 5px;
+    opacity: 0.3;
+    font-size: 14px;
+}
+
+/* =========================
+   THEME TOGGLE BUTTON
+   Minimal utility button
+========================= */
+#theme-toggle {
+    opacity: 0.8;
+    font-size: 14px;
+    padding: 8px 14px;
+    margin-bottom: 25px;
 }
 
 /* =========================
@@ -72,11 +110,14 @@ button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, 
+        background-color 0.3s ease, box-shadow 0.3s ease;
     background-color: #f0f4f8;
     font-weight: 400;
     background-color: var(--blue);
     color: var(--text);
+    font-size: 15px;
+    transform-origin: center;
 }
 
 /* ========================== 
@@ -92,6 +133,14 @@ button:hover {
 }
 
 /* =========================
+   BUTTON PRESS EFFECT
+   Adds tactile interaction feedback
+========================= */
+button:active {
+    transform: scale(0.97);
+}
+
+/* =========================
     SELECTED STATE
     Active button highlight
     - activated button when user selects a mood/need
@@ -101,6 +150,7 @@ button.active {
     background-color: var(--purple);
     color: white;
     transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 /* =========================
@@ -110,11 +160,12 @@ button.active {
 .result-section {
     margin-top: 30px;
     padding: 20px;
-    background: rgba(255,255,255,0.35);
-    border-radius: 20px;
+    background: rgba(255,255,255,0.78);
+    border-radius: 24px;
     margin: 0 auto;
     backdrop-filter: blur(6px);
     max-width: 600px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
 /* =========================
@@ -125,8 +176,18 @@ button.active {
     margin: 20px auto;
     font-size: 18px;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
     max-width: 500px;
+    min-height: 55px;
+}
+
+/* =========================
+   PRIMARY ACTION BUTTON
+   Main result trigger
+========================= */
+.result-section button {
+    margin-top: 15px;
+    min-width: 160px;
 }
 
 /* ========================== 
@@ -178,7 +239,7 @@ button.active {
     padding: 12px;
     border-radius: 10px;
     max-width: 400px;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 #history-list li:hover {
@@ -210,7 +271,7 @@ button.active {
    DARK MODE RESULT CARD
 ========================= */
 .dark-mode .result-section {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.06);
 }
 
 /* =========================
@@ -240,6 +301,13 @@ button.active {
 }
 
 /* =========================
+   DARK MODE SECTION CARDS
+========================= */
+.dark-mode .mood-section, .dark-mode .need-section, .dark-mode .history-section {
+    background: rgba(255,255,255,0.04);
+}
+
+/* =========================
    DARK MODE INSIGHT TEXT
 ========================= */
 .dark-mode #insight-text {
@@ -259,4 +327,61 @@ button.active {
     max-width: 450px;
     margin-right: auto;
     margin-left: auto;
+}
+
+/* =========================
+   CONTENT SECTIONS
+   Shared layout styling
+========================= */
+.mood-section, .need-section, .result-section, .history-section {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* =========================
+   SECTION CARD STYLE
+   Soft container appearance
+========================= */
+.mood-section, .need-section, .history-section {
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    backdrop-filter: blur(4px);
+}
+
+/* =========================
+   SOFT SECTION ENTRANCE
+   Gentle floating animation
+========================= */
+.mood-section, .need-section, .result-section, .history-section {
+    animation: fadeIn 0.8s ease;
+}
+
+/* =========================
+   MOBILE RESPONSIVE DESIGN
+   Optimized layout for smaller screens
+========================= */
+@media (max-width: 768px) {
+
+    body {
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .logo-area h2 {
+        font-size: 20px;
+    }
+
+    button {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .mood-section, .need-section, .result-section, .history-section {
+        padding: 20px;
+    }
 }
