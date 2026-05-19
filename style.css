@@ -44,6 +44,18 @@ h1 {
 }
 
 /* =========================
+   TOP BAR LAYOUT
+   App header navigation area
+========================= */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 760px;
+    margin: 0 auto 30px auto;
+}
+
+/* =========================
    APP BRANDING
    Minimal top identity section
 ========================= */
@@ -67,13 +79,19 @@ h1 {
 
 /* =========================
    THEME TOGGLE BUTTON
-   Minimal utility button
+   Minimal floating utility button
 ========================= */
 #theme-toggle {
-    opacity: 0.8;
-    font-size: 14px;
-    padding: 8px 14px;
-    margin-bottom: 25px;
+    opacity: 0.9;
+    font-size: 18px;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
 }
 
 /* =========================
@@ -199,6 +217,16 @@ button.active {
 .primary-btn {
     margin-top: 15px;
     min-width: 160px;
+}
+
+/* Smaller supportive actions */
+.secondary-btn {
+    width: auto;
+    min-width: unset;
+    padding: 7px 14px;
+    font-size: 13px;
+    opacity: 0.78;
+    border-radius: 999px;
 }
 
 /* =========================
@@ -422,6 +450,10 @@ button.active {
         max-width: 320px;
     }
 
+    .secondary-btn {
+        width: auto;
+    }
+
     .mood-section, .need-section, .result-section, .history-section {
         padding: 20px;
     }
@@ -516,14 +548,36 @@ header, main, footer, #theme-toggle {
 @keyframes ambientBreathing {
     
     0% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) 
+            scale(1)
+            translateX(0px)
+            translateY(0px);
+    }
+
+    25% {
+        transform: translate(-50%, -50%)
+            scale(1.08)
+            translateX(20px)
+            translateY(-10px);
     }
 
     50% {
-        transform: translate(-50%, -50%) scale(1.16);
+        transform: translate(-50%, -50%) 
+            scale(1.16)
+            translateX(-15px)
+            translateY(15px);
+    }
+
+    75% {
+        transform: translate(-50%, -50%)
+            scale(1.08)
+            translateX(10px)
+            translateY(8px);
     }
 
     100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) 
+            scale(1)
+            translate;
     }
 }

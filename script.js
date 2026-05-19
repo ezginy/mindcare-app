@@ -297,6 +297,9 @@ function showResult(){
         // Show restart button after revealing result
         document.getElementById("restart-btn").style.display = "inline-block";
 
+        // Hide show result button after reveal
+        document.getElementById("show-result-btn").style.display = "none";
+
         // Store current check-in in history
         history.push({
             mood: state.mood,
@@ -432,6 +435,12 @@ themeToggle.addEventListener("click", () => {
 
     // Toggle dark mode class on body
     document.body.classList.toggle("dark-mode");
+
+    // Check current theme mode
+    const isDarkMode = document.body.classList.contains("dark-mode");
+
+    // Update toggle icon
+    themeToggle.innerText = isDarkMode ? "☀️" : "🌙";
 });
 
 // ===============================
@@ -518,6 +527,9 @@ function restartCheckIn() {
     state.mood = null;
     state.need = null;
 
+    // Reset result text
+    document.getElementById("result-text").innerText = "Click below to reveal your personalized result.";
+
     // Remove active button states
     document.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
 
@@ -527,6 +539,9 @@ function restartCheckIn() {
     // Reset result navigation buttons
     document.getElementById("result-back-btn").style.display = "inline-block";
     document.getElementById("restart-btn").style.display = "none";
+
+    // Re-show result trigger button
+    document.getElementById("show-result-btn").style.display = "inline-block";
 
     // Return to first screen
     currentStep = 1;
