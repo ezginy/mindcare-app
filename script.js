@@ -7,6 +7,12 @@ let state = {
 };
 
 // ===============================
+// STEP FLOW STATE
+// Controls current screen step
+// ===============================
+let currentStep = 1;
+
+// ===============================
 // HISTORY STORAGE
 // Load previous check-ins from localStorage
 // ===============================
@@ -164,28 +170,6 @@ function getRandomMessage(list){
 }
 
 // ===============================
-// MOOD BACKGROUND DATA
-// Soft background tints for each mood
-// ===============================
-const moodData = {
-    light: {
-        happy: "rgba(212,248,232,0.7)",
-        neutral: "rgba(240, 240, 240, 0.7)",
-        sad: "rgba(219, 234, 254, 0.7)",
-        stress: "rgba(237, 233, 254, 0.7)",
-        tired: "rgba(254, 249, 195, 0.7)"
-    },
-
-    dark: {
-        happy: "#1f3a2e",
-        neutral: "#2a2f36",
-        sad: "#1e3a5f",
-        stress: "#3b2c52",
-        tired: "#4a4423"
-    }
-};
-
-// ===============================
 // AMBIENT GLOW COLORS
 // Soft animated background colors
 // ===============================
@@ -196,18 +180,6 @@ const glowColors = {
     stress: "#a78bfa",
     tired: "#fde68a"
 };
-
-// ===============================
-// SOFT PAGE TINT COLORS
-// Subtle ambient background tones
-// ===============================
-const ambientColors = {
-    happy: "#f0faf4",
-    neutral: "#f5f5f5",
-    sad: "#eef6ff",
-    stress: "#f5f0ff",
-    tired: "#fffbea"
-}
 
 // ===============================
 // EMOJI DATA
@@ -232,6 +204,12 @@ const emojiData = {
 };
 
 // ===============================
+// PROGRESS INDICATOR DOTS
+// Tracks current visible app step
+// ===============================
+const progressDots = document.querySelectorAll(".progress-dot");
+
+// ===============================
 // MOOD SELECTION
 // Stores selected mood and updates UI state
 // ===============================
@@ -249,6 +227,12 @@ function setMood(mood){
 
     // add active class to selected mood button
     event.target.classList.add("active");
+
+    //Move to next step after mood selection
+    currentStep = 2;
+
+    //Update visible UI sections
+    updateStepUI();
 }
 
 // ===============================
@@ -263,6 +247,12 @@ function setNeed(need){
 
     // add active to clicked need button
     event.target.classList.add("active");
+
+    // Move to result step after need selection
+    currentStep = 3;
+
+    // Update visible UI sections
+    updateStepUI();
 }
 
 /* ==========================
@@ -295,6 +285,17 @@ function showResult(){
         const randomMessage = getRandomMessage(messages);
 
         resultText.innerText = randomMessage;
+
+        // Trigger smooth result reveal animation
+        resultText.classList.remove("result-reveal");
+        void resultText.offsetWidth;
+        resultText.classList.add("result-reveal");
+
+        // Hide back button after revealing result
+        document.getElementById("result-back-btn").style.display = "none";
+
+        // Show restart button after revealing result
+        document.getElementById("restart-btn").style.display = "inline-block";
 
         // Store current check-in in history
         history.push({
@@ -393,7 +394,6 @@ function generateInsight(){
             needCount[entry.need] = 1;
         }
     });
-    console.log(needCount);
 
     // track the most selected need
     let topNeed = "";
@@ -420,12 +420,6 @@ function generateInsight(){
     insightText.innerText = insightMessages[topNeed];
 }
 
-// Initial render when page loads
-renderHistory();
-
-// Generate personalized insight
-generateInsight();
-
 /* ==========================
    DARK MODE TOGGLE
 
@@ -438,10 +432,114 @@ themeToggle.addEventListener("click", () => {
 
     // Toggle dark mode class on body
     document.body.classList.toggle("dark-mode");
-
-    // Re-apply mood background after theme switch
-    if(state.mood){
-        // detect current active theme
-        const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    }
 });
+
+// ===============================
+// STEP SECTIONS
+// Select app sections for step flow
+// ===============================
+const moodSection = document.querySelector(".mood-section");
+const needSection = document.querySelector(".need-section");
+const resultSection = document.querySelector(".result-section");
+
+/* ==========================
+   UPDATE STEP UI
+
+   PURPOSE:
+   - Controls which section is visible
+   - Creates multi-step app flow
+========================== */
+function updateStepUI() {
+
+    // Reset all progress dots 
+    progressDots.forEach(dot => dot.classList.remove("active-dot"));
+
+    // STEP 1 -> mood selection
+    if (currentStep === 1){
+        moodSection.style.display = "block";
+        moodSection.classList.add("step-visible");
+        progressDots[0].classList.add("active-dot");
+
+        needSection.style.display = "none";
+        resultSection.style.display = "none";
+    }
+
+    // STEP 2 -> need selection 
+    else if (currentStep === 2){
+        moodSection.style.display = "none";
+
+        needSection.style.display = "block";
+        needSection.classList.add("step-visible");
+        progressDots[1].classList.add("active-dot");
+
+        resultSection.style.display = "none";
+    }
+
+    // STEP 3 -> result selection
+    else if (currentStep === 3){
+        moodSection.style.display = "none";
+        needSection.style.display = "none";
+
+        resultSection.style.display = "block";
+        resultSection.classList.add("step-visible");
+        progressDots[2].classList.add("active-dot");
+
+        // Show result navigation buttons
+        document.getElementById("result-nav").style.display = "flex";
+    }
+}
+
+/* ==========================
+   STEP NAVIGATION
+   Handles backward step flow
+========================== */
+
+// Return to mood selection screen
+function goBackToMood() {
+    currentStep = 1;
+    updateStepUI();
+}
+
+// Return to need selection screen
+function goBackToNeed() {
+    currentStep = 2;
+    updateStepUI();
+}
+
+/* ==========================
+   RESTART CHECK-IN FLOW
+
+   PURPOSE:
+   - Resets app flow
+   - Starts a fresh emotional check-in
+========================== */
+function restartCheckIn() {
+    // Reset saved selections
+    state.mood = null;
+    state.need = null;
+
+    // Remove active button states
+    document.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+
+    // Re-show result navigation for future check-ins
+    document.getElementById("result-nav").style.display = "flex";
+
+    // Reset result navigation buttons
+    document.getElementById("result-back-btn").style.display = "inline-block";
+    document.getElementById("restart-btn").style.display = "none";
+
+    // Return to first screen
+    currentStep = 1;
+
+    // Update visible sections
+    updateStepUI();
+}
+
+// Initial render when page loads
+renderHistory();
+
+// Generate personalized insight
+generateInsight();
+
+// Initialize first app step
+updateStepUI();

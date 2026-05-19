@@ -98,6 +98,34 @@ footer {
 }
 
 /* =========================
+   PROGRESS INDICATOR
+   Visual step tracking system
+========================= */
+.progress-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+/* Individual progress dots */
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.5;
+}
+
+/* Active current step dot */
+.active-dot {
+    background: var(--purple);
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* =========================
     BUTTONS
     Base styling
     - margin and padding adjustment 
@@ -112,7 +140,6 @@ button {
     cursor: pointer;
     transition: transform 0.2s ease, 
         background-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #f0f4f8;
     font-weight: 400;
     background-color: var(--blue);
     color: var(--text);
@@ -169,6 +196,11 @@ button.active {
     border: 1px solid rgba(255,255,255,0.18);
 }
 
+.primary-btn {
+    margin-top: 15px;
+    min-width: 160px;
+}
+
 /* =========================
    RESULT TEXT
    Dynamic message output styling
@@ -180,15 +212,6 @@ button.active {
     line-height: 1.7;
     max-width: 500px;
     min-height: 55px;
-}
-
-/* =========================
-   PRIMARY ACTION BUTTON
-   Main result trigger
-========================= */
-.result-section button {
-    margin-top: 15px;
-    min-width: 160px;
 }
 
 /* ========================== 
@@ -437,6 +460,53 @@ header, main, footer, #theme-toggle {
     animation: ambientBreathing 6s ease-in-out infinite;
     pointer-events: none;
     will-change: transform;
+}
+
+/* =========================
+   STEP NAVIGATION LAYOUT
+   Aligns navigation buttons
+========================= */
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.step-buttons button {
+    min-width: 110px;
+}
+
+/* =========================
+   STEP TRANSITION
+   Smooth section appearance
+========================= */
+.step-visible {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Hide restart button until result is revealed */
+#restart-btn {
+    display: none;
+}
+
+/* =========================
+   RESULT REVEAL EFFECT
+   Smooth emotional reveal animation
+========================= */
+.result-reveal {
+    animation: resultReveal 0.7s ease;
+}
+
+@keyframes resultReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* =========================
