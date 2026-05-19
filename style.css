@@ -24,6 +24,55 @@ body {
     background-color 1s ease, color 0.4s ease;
   background-color: var(--background);
   color: var(--text);
+  overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND SHAPE LAYERS
+   Decorative atmospheric blobs
+========================= */
+.background-shapes {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(65px);
+    opacity: 0.78;
+    animation: floatShape 9s ease-in-out infinite;
+    transition: background-color 0.8s ease, opacity 0.4s ease;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: #bfdbfe;
+    top: -80px;
+    left: -60px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 280px;
+    height: 280px;
+    background: #bbf7d0;
+    bottom: -70px;
+    right: -50px;
+    animation-delay: -3s;
+}
+
+.shape-3 {
+    width: 210px;
+    height: 210px;
+    background: #ddd6fe;
+    top: 42%;
+    left: 62%;
+    animation-delay: -6s;
 }
 
 /* =========================
@@ -382,7 +431,11 @@ button.active {
 /* =========================
    DARK MODE SECTION CARDS
 ========================= */
-.dark-mode .mood-section, .dark-mode .need-section, .dark-mode .history-section {
+.dark-mode .mood-section, 
+.dark-mode .need-section,
+.dark-mode .situation-section,
+.dark-mode .intensity-section, 
+.dark-mode .history-section {
     background: rgba(255,255,255,0.04);
 }
 
@@ -412,7 +465,12 @@ button.active {
    CONTENT SECTIONS
    Shared layout styling
 ========================= */
-.mood-section, .need-section, .result-section, .history-section {
+.mood-section, 
+.need-section, 
+.situation-section,
+.intensity-section,
+.result-section, 
+.history-section {
     max-width: 700px;
     margin: 0 auto;
 }
@@ -421,7 +479,11 @@ button.active {
    SECTION CARD STYLE
    Soft container appearance
 ========================= */
-.mood-section, .need-section, .history-section {
+.mood-section, 
+.need-section, 
+.situation-section,
+.intensity-section,
+.history-section {
     padding: 25px;
     border-radius: 20px;
     background: rgba(255,255,255,0.22);
@@ -434,7 +496,12 @@ button.active {
    SOFT SECTION ENTRANCE
    Gentle floating animation
 ========================= */
-.mood-section, .need-section, .result-section, .history-section {
+.mood-section, 
+.need-section, 
+.situation-section,
+.intensity-section,
+.result-section, 
+.history-section {
     animation: fadeIn 0.8s ease;
 }
 
@@ -476,7 +543,12 @@ button.active {
         width: auto;
     }
 
-    .mood-section, .need-section, .result-section, .history-section {
+    .mood-section, 
+    .need-section, 
+    .situation-section,
+    .intensity-section,
+    .result-section, 
+    .history-section {
         padding: 20px;
     }
 
@@ -502,15 +574,15 @@ header, main, footer, #theme-toggle {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 500px;
-    height: 500px;
+    width: 360px;
+    height: 360px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: radial-gradient(circle, currentColor 0%, transparent 70%);
-    filter: blur(70px);
-    opacity: 1;
+    filter: blur(60px);
+    opacity: 0.45;
     z-index: 0;
-    transition: background 0.8s ease, transform 2s ease;
+    transition: background 0.8s ease, transform 2s ease, opacity 0.4s ease;
     animation: ambientBreathing 6s ease-in-out infinite;
     pointer-events: none;
     will-change: transform;
@@ -600,6 +672,22 @@ header, main, footer, #theme-toggle {
     100% {
         transform: translate(-50%, -50%) 
             scale(1)
-            translate;
+            translateX(0px)
+            translateY(0px);
+    }
+}
+
+@keyframes floatShape {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(24px, -18px) scale(1.08);
+    }
+    66% {
+        transform: translate(-18px, 20px) scale(0.96);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
     }
 }

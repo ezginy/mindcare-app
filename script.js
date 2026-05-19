@@ -228,14 +228,22 @@ const progressDots = document.querySelectorAll(".progress-dot");
 // MOOD SELECTION
 // Stores selected mood and updates UI state
 // ===============================
-function setMood(mood){
+function setMood(mood, event){
     state.mood = mood;
     
     // select animated background glow layer
     const backgroundGlow = document.querySelector(".background-glow");
 
+    // select decorative floating shape layers
+    const backgroundShapes = document.querySelectorAll(".shape");
+
     // apply matching mood glow color
     backgroundGlow.style.color = glowColors[mood];
+
+    // apply matching mood color to all floating shapes
+    backgroundShapes.forEach(shape => {
+        shape.style.backgroundColor = glowColors[mood];
+    });
 
     // remove previous active button
     document.querySelectorAll(".mood-section button").forEach(btn => btn.classList.remove("active"));
@@ -254,7 +262,7 @@ function setMood(mood){
 // NEED SELECTION
 // Stores selected need and updates UI state
 // ===============================
-function setNeed(need){
+function setNeed(need, event){
     state.need = need;
 
     // remove previous active
@@ -273,7 +281,7 @@ function setNeed(need){
 /* ==========================
    SITUATION SELECTION
 ========================== */
-function setSituation(situation) {
+function setSituation(situation, event) {
     state.situation = situation;
 
     // remove previous active
@@ -290,7 +298,7 @@ function setSituation(situation) {
 /* ==========================
    INTENSITY SELECTION
 ========================== */
-function setIntensity(intensity) {
+function setIntensity(intensity, event) {
     state.intensity = intensity;
 
     // remove previous active
@@ -300,7 +308,7 @@ function setIntensity(intensity) {
     event.target.classList.add("active");
 
     // move to result screen
-    currentStep = 5
+    currentStep = 5;
     updateStepUI();
 }
 
@@ -327,7 +335,7 @@ function showResult(){
     const resultText = document.getElementById("result-text");
 
     if(!state.mood || !state.need || !state.situation || !state.intensity){
-        resultText.innerText = "Please select both mood and need.";
+        resultText.innerText = "Please complete all steps before showing the result.";
         return;
     } else {
         const messages = responses[state.mood][state.need]; 
@@ -374,6 +382,8 @@ function showResult(){
     void resultText.offsetWidth;
     // 3. Add the Fade-in class again → animation will work again
     resultText.classList.add("fade-in");
+
+    generateInsight();
 }
 
 /* ==========================
