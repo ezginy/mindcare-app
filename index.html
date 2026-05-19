@@ -39,6 +39,8 @@
             <span class="progress-dot active-dot"></span>
             <span class="progress-dot"></span>
             <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
         </div>
 
         <div class="top-layout">
@@ -46,6 +48,7 @@
             <!-- MOOD SECTION -->
             <section class="mood-section">
                 <h2>Choose your mood</h2>
+                <p class="step-guidance">There’s no right or wrong answer.</p>
 
                 <button onclick="setMood('happy', event)">🙂 Happy</button>
                 <button onclick="setMood('neutral', event)">😐 Okay</button>
@@ -57,6 +60,7 @@
             <!-- NEED SECTION -->
             <section class="need-section">
                 <h2>What do you need today?</h2>
+                <p class="step-guidance">Choose what feels most supportive right now.</p>
 
                 <button onclick="setNeed('calm', event)">🧘 Calm</button>
                 <button onclick="setNeed('talk', event)">💬 Talk</button>
@@ -69,18 +73,50 @@
                     <button class="secondary-btn" onclick="goBackToMood()">⬅ Back</button>
                 </div>
             </section>
+
+            <!-- SITUATION SECTION -->
+            <section class="situation-section">
+                <h2>What's affecting you the most right now?</h2>
+                <p class="step-guidance">You don’t need to explain everything perfectly.</p>
+
+                <button onclick="setSituation('school', event)">📚 School</button>
+                <button onclick="setSituation('work', event)">💼 Work</button>
+                <button onclick="setSituation('relationships', event)">👥 Relationships</button>
+                <button onclick="setSituation('overthinking', event)">🧠 Overthinking</button>
+                <button onclick="setSituation('life', event)">🌍 Life in general</button>
+                <button onclick="setSituation('unsure', event)">❓ I'm not sure</button>
+
+                <div class="step-buttons">
+                    <button class="secondary-btn" onclick="goBackToNeed">⬅ Back</button>
+                </div>
+            </section>
+
+            <!-- INTENSITY SECTION -->
+            <section class="intensity-section">
+                <h2>How intense is this feeling?</h2>
+                <p class="step-guidance">Even small feelings deserve attention.</p>
+
+                <button onclick="setIntensity('light', event)">🌤 Light</button>
+                <button onclick="setIntensity('medium', event)">🌧 Medium</button>
+                <button onclick="setIntensity('intense', event)">⛈ Intense</button>
+
+                <div class="step-buttons">
+                    <button class="secondary-btn" onclick="goBackToSituation()">⬅ Back</button>
+                </div>
+            </section>
         </div>
 
          <!-- RESULT SECTION -->
           <section class="result-section">
             <h2>Your Result</h2>
             <p id="result-text" class="fade-in">Click below to reveal your personalized result.</p>
+            <p id="result-context"></p>
 
             <button id="show-result-btn" class="primary-btn" onclick="showResult()">Show Result</button>
 
             <!-- Step navigation buttons -->
             <div class="step-buttons" id="result-nav">
-                <button id="result-back-btn" class="secondary-btn" onclick="goBackToNeed()">⬅ Back</button>
+                <button id="result-back-btn" class="secondary-btn" onclick="goBackToIntensity()">⬅ Back</button>
                 <button id="restart-btn" class="secondary-btn" onclick="restartCheckIn()">↺ Check In Again</button>
             </div>
           </section>

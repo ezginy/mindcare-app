@@ -3,7 +3,9 @@
 // ===============================
 let state = {
     mood: null,
-    need: null
+    need: null,
+    situation: null,
+    intensity: null
 };
 
 // ===============================
@@ -170,6 +172,19 @@ function getRandomMessage(list){
 }
 
 // ===============================
+// CONTEXTUAL RESULT MESSAGES
+// Small personalized emotional notes
+// ===============================
+const contextMessages = {
+    school: "School pressure can feel overwhelming sometimes.",
+    work: "Work-related stress can quietly build up over time.",
+    relationships: "Relationships can deeply affect emotional balance.",
+    overthinking: "Overthinking can make emotions feel heavier than they are.",
+    life: "Sometimes life feels emotionally messy without a clear reason.",
+    unsure: "Not understanding your feelings immediately is completely okay."
+};
+
+// ===============================
 // AMBIENT GLOW COLORS
 // Soft animated background colors
 // ===============================
@@ -256,6 +271,40 @@ function setNeed(need){
 }
 
 /* ==========================
+   SITUATION SELECTION
+========================== */
+function setSituation(situation) {
+    state.situation = situation;
+
+    // remove previous active
+    document.querySelectorAll(".situation-section button").forEach(btn => btn.classList.remove("active"));
+
+    // activate selected button
+    event.target.classList.add("active");
+
+    // move to next step
+    currentStep = 4;
+    updateStepUI();
+}
+
+/* ==========================
+   INTENSITY SELECTION
+========================== */
+function setIntensity(intensity) {
+    state.intensity = intensity;
+
+    // remove previous active
+    document.querySelectorAll(".intensity-section button").forEach(btn => btn.classList.remove("active"));
+
+    // activate selected button
+    event.target.classList.add("active");
+
+    // move to result screen
+    currentStep = 5
+    updateStepUI();
+}
+
+/* ==========================
     SHOW RESULT FUNCTION
     
     PURPOSE:
@@ -277,7 +326,7 @@ function setNeed(need){
 function showResult(){
     const resultText = document.getElementById("result-text");
 
-    if(!state.mood || !state.need){
+    if(!state.mood || !state.need || !state.situation || !state.intensity){
         resultText.innerText = "Please select both mood and need.";
         return;
     } else {
@@ -285,6 +334,9 @@ function showResult(){
         const randomMessage = getRandomMessage(messages);
 
         resultText.innerText = randomMessage;
+
+        // Display contextual emotional note
+        document.getElementById("result-context").innerText = contextMessages[state.situation];
 
         // Trigger smooth result reveal animation
         resultText.classList.remove("result-reveal");
@@ -449,6 +501,8 @@ themeToggle.addEventListener("click", () => {
 // ===============================
 const moodSection = document.querySelector(".mood-section");
 const needSection = document.querySelector(".need-section");
+const situationSection = document.querySelector(".situation-section");
+const intensitySection = document.querySelector(".intensity-section");
 const resultSection = document.querySelector(".result-section");
 
 /* ==========================
@@ -470,6 +524,8 @@ function updateStepUI() {
         progressDots[0].classList.add("active-dot");
 
         needSection.style.display = "none";
+        situationSection.style.display = "none";
+        intensitySection.style.display = "none";
         resultSection.style.display = "none";
     }
 
@@ -481,17 +537,47 @@ function updateStepUI() {
         needSection.classList.add("step-visible");
         progressDots[1].classList.add("active-dot");
 
+        situationSection.style.display = "none";
+        intensitySection.style.display = "none";
         resultSection.style.display = "none";
     }
 
-    // STEP 3 -> result selection
+    // STEP 3 -> situation selection
     else if (currentStep === 3){
         moodSection.style.display = "none";
         needSection.style.display = "none";
 
+        situationSection.style.display = "block";
+        situationSection.classList.add("step-visible");
+        progressDots[2].classList.add("active-dot");
+
+        intensitySection.style.display = "none";
+        resultSection.style.display = "none";
+    }
+
+    // STEP 4 -> intensity selection
+    else if (currentStep === 4){
+        moodSection.style.display = "none";
+        needSection.style.display = "none";
+        situationSection.style.display = "none";
+
+        intensitySection.style.display = "block";
+        intensitySection.classList.add("step-visible");
+        progressDots[3].classList.add("active-dot");
+
+        resultSection.style.display = "none";
+    }
+
+    // STEP 5 -> result selection
+    else if (currentStep === 5){
+        moodSection.style.display = "none";
+        needSection.style.display = "none";
+        situationSection.style.display = "none";
+        intensitySection.style.display = "none";
+
         resultSection.style.display = "block";
         resultSection.classList.add("step-visible");
-        progressDots[2].classList.add("active-dot");
+        progressDots[4].classList.add("active-dot");
 
         // Show result navigation buttons
         document.getElementById("result-nav").style.display = "flex";
@@ -515,6 +601,18 @@ function goBackToNeed() {
     updateStepUI();
 }
 
+// Return to situation selection screen
+function goBackToSituation() {
+    currentStep = 3;
+    updateStepUI();
+}
+
+// Return to intensity selection screen
+function goBackToIntensity() {
+    currentStep = 4;
+    updateStepUI();
+}
+
 /* ==========================
    RESTART CHECK-IN FLOW
 
@@ -526,12 +624,14 @@ function restartCheckIn() {
     // Reset saved selections
     state.mood = null;
     state.need = null;
+    state.situation = null;
+    state.intensity = null;
 
     // Reset result text
     document.getElementById("result-text").innerText = "Click below to reveal your personalized result.";
 
     // Remove active button states
-    document.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".mood-section button, .need-section button, .situation-section button, .intensity-section button").forEach(btn => btn.classList.remove("active"));
 
     // Re-show result navigation for future check-ins
     document.getElementById("result-nav").style.display = "flex";

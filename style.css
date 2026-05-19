@@ -144,6 +144,17 @@ footer {
 }
 
 /* =========================
+   STEP GUIDANCE TEXT
+   Soft emotional helper text
+========================= */
+.step-guidance {
+    font-size: 14px;
+    opacity: 0.72;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* =========================
     BUTTONS
     Base styling
     - margin and padding adjustment 
@@ -240,6 +251,17 @@ button.active {
     line-height: 1.7;
     max-width: 500px;
     min-height: 55px;
+}
+
+/* =========================
+   RESULT CONTEXT MESSAGE
+   Personalized emotional note
+========================= */
+#result-context {
+    margin-top: 16px;
+    font-size: 14px;
+    opacity: 0.72;
+    line-height: 1.6;
 }
 
 /* ========================== 
